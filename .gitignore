@@ -1,6 +1,6 @@
 .cache
 .idea
-.env*
+.env
 log
 test/log
 test/**/log

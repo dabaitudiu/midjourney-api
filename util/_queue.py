@@ -1,7 +1,8 @@
 import asyncio
 from collections import deque
 from os import getenv
-from typing import ParamSpec, Callable, Any, Dict, List, Deque
+from typing import Callable, Any, Dict, List
+from typing_extensions import ParamSpec, Deque
 
 from loguru import logger
 
