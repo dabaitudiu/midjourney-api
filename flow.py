@@ -9,7 +9,7 @@ headers = {
     'Content-Type': 'application/json',
 }
 
-prefix = "scifi, realistic, cinematic, hand drawing, "
+prefix = "scifi, realistic, cinematic, delicate, 2d game art, "
 suffix = " --ar 3:4"
 
 
@@ -55,9 +55,9 @@ with open("data_source/sea1_output.csv", "r", encoding="cp1252") as csv_file:
                 counter -= 1
 
         if counter == 3 or counter == 0:
-            time.sleep(300)
+            time.sleep(120)
         else:
-            time.sleep(150)
+            time.sleep(60)
 
 
 
