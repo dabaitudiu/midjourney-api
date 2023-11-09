@@ -1,6 +1,7 @@
 .cache
 .idea
 .env
+.DS_Store
 log
 test/log
 test/**/log
@@ -10,7 +11,8 @@ test/**/log
 data
 test/data
 test/**/data
-data_source/images
+data_source/
+voices/
 
 # pipenv
 Pipfile

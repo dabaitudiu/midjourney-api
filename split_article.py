@@ -1,7 +1,7 @@
 import re
 import csv
 
-tag_name = "sea1"
+tag_name = "黜龙1"
 dir_name = "data_source/"
 file_name = dir_name + tag_name + ".txt"
 
@@ -10,8 +10,8 @@ with open(file_name, "r", encoding="utf-8") as file:
     text = file.read()
 
 # 定义分隔符和最低长度限制
-delimiter = r"[\n.!?]"  # 可以根据需要添加更多的分隔符
-min_segment_length = 10  # 最低长度限制
+delimiter = r"[\n.!?，、。\"'？！”“：… ‘’]"  # 可以根据需要添加更多的分隔符
+min_segment_length = 40  # 最低长度限制
 
 # 切割文本并生成句子列表
 sentences = []
@@ -39,4 +39,4 @@ with open(output_filename, "w", newline="", encoding="utf-8") as csv_file:
             continue
         writer.writerow([sentence])
 
-print("CSV文件已生成：output.csv")
+print("CSV文件已生成：" + output_filename)

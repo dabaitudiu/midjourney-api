@@ -9,7 +9,7 @@ headers = {
     'Content-Type': 'application/json',
 }
 
-prefix = "scifi, realistic, cinematic, delicate, 2d game art, "
+prefix = "dark and depressed coloring, best quality, CG, broken world, realistic, cinematic art, "
 suffix = " --ar 3:4"
 
 
@@ -26,7 +26,7 @@ def replace_banned(prompt: str):
 
 
 # 读取生成的CSV文件
-with open("data_source/sea1_output.csv", "r", encoding="cp1252") as csv_file:
+with open("data_source/sea4_output.csv", "r", encoding="cp1252") as csv_file:
     reader = csv.reader(csv_file)
     next(reader)  # 跳过第一行，即列标题
     counter = 0

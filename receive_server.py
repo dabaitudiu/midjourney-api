@@ -33,7 +33,7 @@ def receive_request():
                 print("content: ", data['content'])
 
                 current_datetime = datetime.datetime.now()
-                ctime = current_datetime.strftime('%Y-%m-%d %H:%M:%S')
+                ctime = current_datetime.strftime('%Y-%m-%d %H-%M-%S')
 
                 download_and_save_image(data['attachments'][0]['url'], ctime)
                 update_csv(trigger_id, data['content'], ctime)
@@ -74,7 +74,7 @@ def update_csv(trigger_id, content, ctime):
 
             # 提取 '>' 之后和 '--ar' 之前的内容
             if start_index != -1 and end_index != -1:
-                content = content[start_index + 1:end_index].strip()
+                content = content[start_index + 4:end_index].strip()
 
             # 写入一行数据
             writer.writerow(
