@@ -26,7 +26,7 @@ def cut_and_save_image(ctime):
     for i in range(4):
         # 获取索引为i的子图像
         index_i_image = sub_images[i]
-        inner_dir_name = f'image_group_{i+1}/'
+        inner_dir_name = f'{i+1}/'
         filename = images_output_dir + inner_dir_name + "_trimmed_" + ctime + "_" + str(i) + "_.png"
         index_i_image.save(filename)
 

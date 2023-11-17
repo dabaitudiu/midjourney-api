@@ -8,12 +8,12 @@ headers = {
     'accept': 'application/json',
     'Content-Type': 'application/json',
 }
-article_en_title = "xiandao_en_1"
+article_en_title = "feitu_en_2"
 
 xian_xia_prefix = "scene description, realistic, Chinese fairy tale, full details, 3D art, "
 desert_land_prefix = "best quality, realistic, CG, full details, broken world, cinematic art, "
 
-prefix = xian_xia_prefix
+prefix = desert_land_prefix
 suffix = " --ar 3:4"
 
 

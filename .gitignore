@@ -15,3 +15,8 @@ data_source/
 # pipenv
 Pipfile
 Pipfile.lock
+
+ffmpeg.exe
+ffmpeg.py
+ffplay.exe
+ffprobe.exe
