@@ -5,6 +5,9 @@ from flask import Flask, request, jsonify
 import requests
 
 from cut_image import cut_and_save_image
+from constants import images_output_parent_dir, sub_dir_name
+
+
 
 app = Flask(__name__)
 
@@ -13,6 +16,9 @@ status_dict = {}
 
 prefixTail = "art,"
 suffixHead = "--ar"
+
+# images_dir = "data_source/results/images/废土/"
+images_dir = images_output_parent_dir + sub_dir_name
 
 
 @app.route('/receive_request', methods=['POST'])
@@ -33,7 +39,7 @@ def receive_request():
                 print("content: ", data['content'])
 
                 current_datetime = datetime.datetime.now()
-                ctime = current_datetime.strftime('%Y-%m-%d %H:%M:%S')
+                ctime = current_datetime.strftime('%Y-%m-%d %H-%M-%S')
 
                 download_and_save_image(data['attachments'][0]['url'], ctime)
                 update_csv(trigger_id, data['content'], ctime)
@@ -48,7 +54,7 @@ def download_and_save_image(url, ctime):
     try:
         img_response = requests.get(url)
         image_data = img_response.content
-        filename = "data_source/images/" + ctime + ".png"
+        filename = images_dir + ctime + ".png"
         with open(filename, 'wb') as image_file:
             image_file.write(image_data)
         cut_and_save_image(ctime)
@@ -60,7 +66,7 @@ def download_and_save_image(url, ctime):
 
 def update_csv(trigger_id, content, ctime):
     try:
-        with open("data_source/data.csv", mode='a', newline='') as csv_file:
+        with open(images_dir+"data.csv", mode='a', newline='') as csv_file:
             fieldnames = ['ctime', 'trigger_id', 'content', 'status']
             writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
 
@@ -74,7 +80,7 @@ def update_csv(trigger_id, content, ctime):
 
             # 提取 '>' 之后和 '--ar' 之前的内容
             if start_index != -1 and end_index != -1:
-                content = content[start_index + 1:end_index].strip()
+                content = content[start_index + 4:end_index].strip()
 
             # 写入一行数据
             writer.writerow(

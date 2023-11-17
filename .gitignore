@@ -10,7 +10,7 @@ test/**/log
 data
 test/data
 test/**/data
-data_source/images
+data_source/
 
 # pipenv
 Pipfile

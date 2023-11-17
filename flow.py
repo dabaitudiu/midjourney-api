@@ -8,8 +8,12 @@ headers = {
     'accept': 'application/json',
     'Content-Type': 'application/json',
 }
+article_en_title = "xiandao_en_1"
 
-prefix = "scifi, realistic, cinematic, delicate, 2d game art, "
+xian_xia_prefix = "scene description, realistic, Chinese fairy tale, full details, 3D art, "
+desert_land_prefix = "best quality, realistic, CG, full details, broken world, cinematic art, "
+
+prefix = xian_xia_prefix
 suffix = " --ar 3:4"
 
 
@@ -26,7 +30,7 @@ def replace_banned(prompt: str):
 
 
 # 读取生成的CSV文件
-with open("data_source/sea1_output.csv", "r", encoding="cp1252") as csv_file:
+with open(f'data_source/articles_en/{article_en_title}.csv', "r", encoding="cp1252") as csv_file:
     reader = csv.reader(csv_file)
     next(reader)  # 跳过第一行，即列标题
     counter = 0

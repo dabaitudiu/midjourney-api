@@ -1,9 +1,13 @@
 from PIL import Image
 
+from constants import images_output_parent_dir, sub_dir_name
+
+images_output_dir = images_output_parent_dir + sub_dir_name
+
 
 def cut_and_save_image(ctime):
     # 打开图像
-    filename = "data_source/images/" + ctime + ".png"
+    filename = images_output_dir + ctime + ".png"
     input_image = Image.open(filename)
 
     # 获取图像的宽度和高度
@@ -17,11 +21,12 @@ def cut_and_save_image(ctime):
     sub_images = [input_image.crop((x, y, x + sub_width, y + sub_height)) for x in range(0, width, sub_width) for y in
                   range(0, height, sub_height)]
 
-    # 获取索引为0的子图像
-    index_0_image = sub_images[0]
-
-    # 保存或显示子图像
     # index_0_image.show()  # 显示图像
-    filename = "data_source/images/trimmed_" + ctime + ".png"
-    index_0_image.save(filename)
+
+    for i in range(4):
+        # 获取索引为i的子图像
+        index_i_image = sub_images[i]
+        inner_dir_name = f'image_group_{i+1}/'
+        filename = images_output_dir + inner_dir_name + "_trimmed_" + ctime + "_" + str(i) + "_.png"
+        index_i_image.save(filename)
 
