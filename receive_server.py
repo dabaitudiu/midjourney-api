@@ -17,7 +17,6 @@ status_dict = {}
 prefixTail = "art,"
 suffixHead = "--ar"
 
-# images_dir = "data_source/results/images/废土/"
 images_dir = images_output_parent_dir + sub_dir_name
 
 
