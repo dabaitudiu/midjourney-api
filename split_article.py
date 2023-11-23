@@ -1,9 +1,9 @@
 import re
 import csv
 
-main_name = "全球废土"
-suffix_name = "_2"
-tag_name = main_name + suffix_name
+main_name = "赤心巡天"
+chapter_number = "1"
+tag_name = f"{main_name}_{chapter_number}"
 dir_name = "data_source/books/" + main_name + "/"
 output_dir_name = "data_source/articles/" + main_name + "/"
 file_name = dir_name + tag_name + ".txt"
@@ -13,8 +13,8 @@ with open(file_name, "r", encoding="utf-8") as file:
     text = file.read()
 
 # 定义分隔符和最低长度限制
-delimiter = r"([\n.!?,、：“”’。‘…，—【】！？])"  # 可以根据需要添加更多的分隔符
-min_segment_length = 30  # 最低长度限制
+delimiter = r"([\n.!?。！？])"  # 可以根据需要添加更多的分隔符
+min_segment_length = 20  # 最低长度限制
 
 # 切割文本并生成句子列表
 sentences = []
@@ -25,7 +25,8 @@ for i in range(0, len(segments), 2):  # 每两个元素一组，第一个元素�
 
     delimiter = segments[i + 1] if i + 1 < len(segments) else ""  # 获取分隔符
     # print(segment, delimiter)
-    current_segment += segment + delimiter
+    if delimiter != '\n':
+        current_segment += segment + delimiter
 
     if len(current_segment) < min_segment_length:
         continue

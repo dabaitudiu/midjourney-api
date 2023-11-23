@@ -1,8 +1,12 @@
+from flask import Flask, request, jsonify
+import re
 import requests
 import csv
 import time
 from lib.prompt import BANNED_PROMPT
 import constants
+
+app = Flask(__name__)
 
 url = 'http://127.0.0.1:8062/v1/api/trigger/imagine'
 headers = {
@@ -20,6 +24,16 @@ desert_land_prefix = "best quality, realistic, CG, full details, broken world, c
 
 prefix = xian_xia_prefix2
 suffix = " --ar 3:4"
+
+@app.route('/send_task', methods=['POST'])
+def receive_request():
+    try:
+        data = request.get_json()  # 获取POST请求的JSON数据
+            return jsonify({"message": "Request received successfully"}), 200
+        else:
+            return jsonify({"error": "Invalid JSON data in the request"}), 400
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 def replace_banned(prompt: str):
@@ -67,3 +81,5 @@ with open(f'data_source/articles_en/{book_name}/{article_en_title}.csv', "r", en
             time.sleep(120)
         else:
             time.sleep(60)
+
+

@@ -1,4 +1,5 @@
-split_limit = 50
+split_limit = 30
+
 
 def split_text(input_file, output_file):
     with open(input_file, 'r', encoding='utf-8') as infile:
@@ -9,7 +10,7 @@ def split_text(input_file, output_file):
 
     for line in lines[1:]:
         line = line.strip()
-        if len(current_line) + len(line) > 50:
+        if len(current_line) + len(line) > split_limit:
             output_lines.append(current_line)
             current_line = line
         else:
@@ -22,8 +23,11 @@ def split_text(input_file, output_file):
         outfile.write('\n'.join(output_lines))
 
 
+book = "赤心巡天"
+chapter = 1
+
 if __name__ == "__main__":
-    input_file = "data_source/books/全球废土/全球废土_2.txt"  # 你的输入文件
-    output_file = "data_source/articles/全球废土/全球废土_2_output.txt"  # 输出文件
+    input_file = f"data_source/books/{book}/{book}_{chapter}.txt"  # 你的输入文件
+    output_file = f"data_source/articles/{book}/{book}_{chapter}_output.txt"  # 输出文件
 
     split_text(input_file, output_file)

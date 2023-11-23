@@ -1,6 +1,7 @@
 import re
+import constants
 
-book_name = "data_source/books/仙道求索/仙道求索"
+book_name = f"data_source/books/{constants.book_name}/{constants.book_name}"
 
 # 读取原始txt文件
 with open(book_name + ".txt", "r", encoding="utf-8") as f:
@@ -27,6 +28,6 @@ for i, match in enumerate(matches):
     chapter_content = content[start:end].strip()
 
     # 将章节内容保存为一个新的txt文件
-    filename = f"{book_name}_第{i+1}章.txt"
+    filename = f"{book_name}_{i}.txt"
     with open(filename, "w", encoding="utf-8") as chapter_file:
-        chapter_file.write(f"第{i+1}章 {chapter_title}\n{chapter_content}")
+        chapter_file.write(f"第{i}章 {chapter_title}\n{chapter_content}")

@@ -1,6 +1,8 @@
 import csv
 import datetime
 import re
+import time
+
 from flask import Flask, request, jsonify
 import requests
 
@@ -16,6 +18,12 @@ prefixTail = "art,"
 suffixHead = "--ar"
 
 images_dir = images_output_parent_dir + sub_dir_name
+
+callback_url = 'http://0.0.0.0:5001/send_task'
+headers = {
+    'accept': 'application/json',
+    'Content-Type': 'application/json',
+}
 
 
 @app.route('/receive_request', methods=['POST'])
@@ -39,6 +47,13 @@ def receive_request():
                 ctime = current_datetime.strftime('%Y-%m-%d %H-%M-%S')
 
                 download_and_save_image(data['attachments'][0]['url'], ctime)
+                # callback
+                response = requests.post(callback_url, headers=headers, json={'data': 'hello'})
+                while response.status_code != 200:
+                    # 请求失败，等待10秒后重试
+                    time.sleep(10)
+                    print("resending request")
+                    response = requests.post(callback_url, headers=headers, json={'data': 'hello'})
                 update_csv(trigger_id, data['content'], ctime)
             return jsonify({"message": "Request received successfully"}), 200
         else:
@@ -84,7 +99,22 @@ def update_csv(trigger_id, content, ctime):
                 {'ctime': ctime, 'trigger_id': trigger_id, 'content': content, 'status': status_dict.get(ctime, False)})
     except Exception as e:
         print(f"Error updating CSV for trigger_id {trigger_id}: {str(e)}")
+        try:
+            with open(images_dir + "data.csv", mode='a', newline='') as csv_file:
+                fieldnames = ['ctime', 'trigger_id', 'content', 'status']
+                writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+
+                # 如果CSV文件不存在，写入表头
+                if csv_file.tell() == 0:
+                    writer.writeheader()
+
+                # 写入一行数据
+                writer.writerow(
+                    {'ctime': ctime, 'trigger_id': trigger_id, 'content': "invalid content",
+                     'status': status_dict.get(ctime, False)})
+        except Exception as k:
+            print(f"Error updating CSV for trigger_id {trigger_id} even if content is nil: {str(k)}")
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8880)  # 启动服务器，监听所有网络接口，端口号为 8080
+    app.run(host='0.0.0.0', port=8880)  # 启动服务器，监听所有网络接口，端口号为 4000
