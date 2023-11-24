@@ -20,12 +20,12 @@ book_name = constants.book_name
 chapter_name = constants.chapter_number
 article_en_title = f"{book_name}_{chapter_name}_en"
 
-xian_xia_prefix2 = "4K, CG, realistic, full details, eastern aesthetics, cinematic art, "
-xian_xia_prefix = "film scene, 2D, ink and oil painting, jianghu, wuxia, cinematic art, "
+xian_xia_prefix2 = "4K, CG, realistic, ancient China aesthetics, Zen, by Zhang Yimou, cinematic art, "
+xian_xia_prefix = "scene description, 2D game art, ancient China aesthetics, by Zhang Yimou, cinematic art, "
 desert_land_prefix = "best quality, realistic, CG, full details, broken world, cinematic art, "
 
-prefix = xian_xia_prefix
-suffix = " --ar 16:9"
+prefix = xian_xia_prefix2
+suffix = " --ar 3:4"
 
 # 全局变量，用于缓存 CSV 文件的内容
 csv_data = None
@@ -45,6 +45,7 @@ def read_csv_file():
             csv_data = list(csv_reader)  # 缓存 CSV 文件的内容
     except Exception as e:
         # 处理文件读取异常
+        print(f"error open csv file, err:{str(e)}")
         csv_data = None
 
 
